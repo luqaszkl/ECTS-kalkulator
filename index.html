@@ -1,69 +1,94 @@
 <!doctype html>
-<html lang="pl">
+<html lang="pl" data-motyw="noc">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kalkulator Średniej ECTS – Szybko i Online</title>
-    <meta
-      name="description"
-      content="Darmowy kalkulator średniej ważonej ECTS dla studentów. Oblicz swoją średnią ocen szybko i zapisz wyniki na później."
-    />
-    <meta
-      name="keywords"
-      content="ECTS, kalkulator średniej, studia, oceny, średnia ważona"
-    />
+    <title>Kalkulator średniej ECTS | ECTScalc</title>
+    <meta name="description" content="Oblicz swoją średnią ważoną na podstawie ocen i punktów ECTS. Dane zapisują się lokalnie, działa bez logowania." />
+    <meta name="keywords" content="kalkulator ECTS, średnia ważona, studia, oceny, średnia studenta, przelicznik ocen" />
+    <meta name="author" content="ECTScalc" />
+    <meta property="og:title" content="Kalkulator średniej ECTS" />
+    <meta property="og:description" content="Wpisz oceny i punkty ECTS, aplikacja policzy średnią ważoną i pokaże rozkład ocen." />
+    <meta property="og:type" content="website" />
+    <link rel="canonical" href="https://luqaszkl.github.io/ECTS-kalkulator/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header>
-      <h1>Kalkulator ECTS</h1>
+      <div class="header-inner">
+        <h1>ECTS<span class="h1-accent">calc</span></h1>
+        <div class="header-controls">
+          <div id="semestr-bar">
+            <label for="semestr">Semestr</label>
+            <input type="number" id="semestr" name="semestr" min="1" max="12" step="1" placeholder="nr" />
+            <span id="semestr-display"></span>
+          </div>
+          <button id="btn-motyw" aria-label="Zmień motyw">☀️</button>
+        </div>
+      </div>
     </header>
+
     <main>
       <form id="ects-form">
-        <p>
-          <label for="przedmiot">Podaj nazwę przedmiotu: </label>
-          <input type="text" name="przedmiot" id="przedmiot" required />
-        </p>
-        <p>
-          <label for="ocena">Wybierz ocenę: </label>
-          <select name="ocena" id="ocena" required>
-            <option value="" disabled selected>--- Wybierz ocenę ---</option>
-            <option value="2.0">2.0</option>
-            <option value="3.0">3.0</option>
-            <option value="3.5">3.5</option>
-            <option value="4.0">4.0</option>
-            <option value="4.5">4.5</option>
-            <option value="5.0">5.0</option>
-          </select>
-        </p>
-        <p>
-          <label for="ects">Podaj liczbę ECTS: </label>
-          <input
-            type="number"
-            id="ects"
-            name="ects"
-            min="0"
-            max="30"
-            step="0.5"
-            required
-          />
-        </p>
+        <div class="form-fields">
+          <p>
+            <label for="przedmiot">Nazwa przedmiotu</label>
+            <input type="text" name="przedmiot" id="przedmiot" required placeholder="np. Analiza Matematyczna" />
+          </p>
+          <div class="form-row">
+            <p>
+              <label for="ocena">Ocena</label>
+              <select name="ocena" id="ocena" required>
+                <option value="" disabled selected>wybierz</option>
+                <option value="2.0">2.0 niedostateczny</option>
+                <option value="3.0">3.0 dostateczny</option>
+                <option value="3.5">3.5 dostateczny+</option>
+                <option value="4.0">4.0 dobry</option>
+                <option value="4.5">4.5 dobry+</option>
+                <option value="5.0">5.0 bardzo dobry</option>
+              </select>
+            </p>
+            <p>
+              <label for="ects">Punkty ECTS</label>
+              <input type="number" id="ects" name="ects" min="0" max="30" step="0.5" required placeholder="np. 5" />
+            </p>
+          </div>
+        </div>
         <button type="submit" id="btn">Dodaj przedmiot</button>
       </form>
-      <section id="lista-przedmiotow" aria-live="polite">
-        <h2>Dodane przedmioty:</h2>
-        <ul id="przedmioty-lista"></ul>
+
+      <section id="podsumowanie-section">
         <div id="podsumowanie">
-          <p>Średnia ważona: <strong id="srednia">-</strong></p>
-          <p>Suma ECTS: <strong id="suma-ects">0</strong></p>
+          <div class="podsumowanie-item">
+            <span class="podsumowanie-label">Średnia ważona</span>
+            <strong id="srednia">—</strong>
+          </div>
+          <div class="podsumowanie-item">
+            <span class="podsumowanie-label">Suma ECTS</span>
+            <strong id="suma-ects">0</strong>
+          </div>
+          <div class="podsumowanie-item">
+            <span class="podsumowanie-label">Przedmioty</span>
+            <strong id="liczba-przedmiotow">0</strong>
+          </div>
+        </div>
+        <div id="wykres-wrapper">
+          <span class="wykres-tytul">Rozkład ocen</span>
+          <div id="wykres-ocen"></div>
         </div>
       </section>
+
+      <section id="lista-przedmiotow" aria-live="polite">
+        <div class="lista-header">
+          <h2>Przedmioty</h2>
+          <button id="btn-wyczysc" style="display:none;">Wyczyść wszystko</button>
+        </div>
+        <ul id="przedmioty-lista"></ul>
+      </section>
     </main>
+
     <script src="app.js"></script>
   </body>
 </html>
