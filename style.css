@@ -175,6 +175,7 @@ button {
     display: flex;
     gap: 12px;
     flex: 1;
+    flex-wrap: wrap;
 }
 
 .li-nazwa
@@ -186,7 +187,7 @@ button {
 .li-ocena,
 .li-ects
 {
-    color: rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.85);
     font-size: 14px;
 
 }
