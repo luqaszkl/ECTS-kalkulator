@@ -4,15 +4,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kalkulator średniej ECTS | ECTScalc</title>
-    <meta name="description" content="Oblicz swoją średnią ważoną na podstawie ocen i punktów ECTS. Dane zapisują się lokalnie, działa bez logowania." />
-    <meta name="keywords" content="kalkulator ECTS, średnia ważona, studia, oceny, średnia studenta, przelicznik ocen" />
+    <meta
+      name="description"
+      content="Oblicz swoją średnią ważoną na podstawie ocen i punktów ECTS. Dane zapisują się lokalnie, działa bez logowania."
+    />
+    <meta
+      name="keywords"
+      content="kalkulator ECTS, średnia ważona, studia, oceny, średnia studenta, przelicznik ocen"
+    />
     <meta name="author" content="ECTScalc" />
     <meta property="og:title" content="Kalkulator średniej ECTS" />
-    <meta property="og:description" content="Wpisz oceny i punkty ECTS, aplikacja policzy średnią ważoną i pokaże rozkład ocen." />
+    <meta
+      property="og:description"
+      content="Wpisz oceny i punkty ECTS, aplikacja policzy średnią ważoną i pokaże rozkład ocen."
+    />
     <meta property="og:type" content="website" />
     <link rel="canonical" href="https://luqaszkl.github.io/ECTS-kalkulator/" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -22,7 +34,15 @@
         <div class="header-controls">
           <div id="semestr-bar">
             <label for="semestr">Semestr</label>
-            <input type="number" id="semestr" name="semestr" min="1" max="12" step="1" placeholder="nr" />
+            <input
+              type="number"
+              id="semestr"
+              name="semestr"
+              min="1"
+              max="12"
+              step="1"
+              placeholder="nr"
+            />
             <span id="semestr-display"></span>
           </div>
           <button id="btn-motyw" aria-label="Zmień motyw">☀️</button>
@@ -31,11 +51,54 @@
     </header>
 
     <main>
+      <section id="hero-section">
+        <button id="btn-info-toggle" aria-label="Zwiń opis">✕</button>
+        <div id="hero-body">
+          <div id="hero-text">
+            <h2>Kalkulator średniej ważonej ECTS</h2>
+            <p>
+              ECTScalc liczy średnią tak samo jak dziekanat, czyli ważoną
+              punktami ECTS. Wszystko zapisuje się lokalnie w przeglądarce, bez
+              konta, bez serwera.
+            </p>
+          </div>
+          <ol id="how-it-works">
+            <li>
+              <span class="step-num">1</span
+              ><span
+                >Ustaw numer semestru w górnym pasku
+                <em>(opcjonalnie)</em></span
+              >
+            </li>
+            <li>
+              <span class="step-num">2</span
+              ><span
+                >Wpisz nazwę przedmiotu, wybierz ocenę i wpisz punkty ECTS</span
+              >
+            </li>
+            <li>
+              <span class="step-num">3</span
+              ><span>Kliknij „Dodaj przedmiot"</span>
+            </li>
+            <li>
+              <span class="step-num">4</span
+              ><span>Użyj symulatora i kalkulatora stypendialnego poniżej</span>
+            </li>
+          </ol>
+        </div>
+      </section>
+
       <form id="ects-form">
         <div class="form-fields">
           <p>
             <label for="przedmiot">Nazwa przedmiotu</label>
-            <input type="text" name="przedmiot" id="przedmiot" required placeholder="np. Analiza Matematyczna" />
+            <input
+              type="text"
+              name="przedmiot"
+              id="przedmiot"
+              required
+              placeholder="np. Analiza Matematyczna"
+            />
           </p>
           <div class="form-row">
             <p>
@@ -52,7 +115,16 @@
             </p>
             <p>
               <label for="ects">Punkty ECTS</label>
-              <input type="number" id="ects" name="ects" min="0" max="30" step="0.5" required placeholder="np. 5" />
+              <input
+                type="number"
+                id="ects"
+                name="ects"
+                min="0"
+                max="30"
+                step="0.5"
+                required
+                placeholder="np. 5"
+              />
             </p>
           </div>
         </div>
@@ -80,14 +152,170 @@
         </div>
       </section>
 
+      <div id="semestr-srednie"></div>
+
       <section id="lista-przedmiotow" aria-live="polite">
         <div class="lista-header">
           <h2>Przedmioty</h2>
-          <button id="btn-wyczysc" style="display:none;">Wyczyść wszystko</button>
+          <div class="lista-actions">
+            <div id="filtry"></div>
+            <button id="btn-wyczysc" style="display: none">
+              Wyczyść wszystko
+            </button>
+          </div>
+        </div>
+        <div id="empty-state">
+          <div class="empty-icon">🎓</div>
+          <p>Brak przedmiotów</p>
+          <span
+            >Dodaj pierwszy przedmiot powyżej, żeby zobaczyć swoją
+            średnią.</span
+          >
         </div>
         <ul id="przedmioty-lista"></ul>
       </section>
+
+      <section id="co-jesli-section" class="tool-section">
+        <div class="tool-header">
+          <div class="tool-title-wrap">
+            <span class="tool-icon">🔮</span>
+            <div>
+              <h3>Co jeśli?</h3>
+              <p class="tool-desc">
+                Symuluj wpływ przyszłych ocen na swoją średnią bez dodawania ich
+                na stałe.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="tool-body">
+          <div class="tool-row">
+            <div class="tool-field">
+              <label for="cj-ocena">Ocena</label>
+              <select id="cj-ocena">
+                <option value="2.0">2.0</option>
+                <option value="3.0">3.0</option>
+                <option value="3.5">3.5</option>
+                <option value="4.0">4.0</option>
+                <option value="4.5" selected>4.5</option>
+                <option value="5.0">5.0</option>
+              </select>
+            </div>
+            <div class="tool-field">
+              <label for="cj-ects">ECTS</label>
+              <input
+                type="number"
+                id="cj-ects"
+                min="0.5"
+                max="30"
+                step="0.5"
+                value="5"
+              />
+            </div>
+          </div>
+          <div id="cj-wynik" class="tool-wynik hidden">
+            <div class="cj-row">
+              <span>Obecna średnia</span>
+              <strong id="cj-obecna">—</strong>
+            </div>
+            <div class="cj-arrow">→</div>
+            <div class="cj-row highlight">
+              <span>Po tej ocenie</span>
+              <strong id="cj-nowa">—</strong>
+            </div>
+            <div class="cj-delta-wrap">
+              <span id="cj-delta"></span>
+            </div>
+          </div>
+          <p id="cj-brak" class="tool-hint">
+            Dodaj najpierw przynajmniej jeden przedmiot.
+          </p>
+        </div>
+      </section>
+
+      <section id="stypendium-section" class="tool-section">
+        <div class="tool-header">
+          <div class="tool-title-wrap">
+            <span class="tool-icon">🏆</span>
+            <div>
+              <h3>Kalkulator stypendialny</h3>
+              <p class="tool-desc">
+                Oszacuj swoje szanse na stypendium rektora na podstawie progu i
+                liczby studentów na roku.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="tool-body">
+          <div class="tool-row">
+            <div class="tool-field">
+              <label for="st-prog">Próg średniej</label>
+              <input
+                type="number"
+                id="st-prog"
+                min="2"
+                max="5"
+                step="0.01"
+                placeholder="np. 4.20"
+              />
+            </div>
+            <div class="tool-field">
+              <label for="st-osoby">Osób na roku</label>
+              <input
+                type="number"
+                id="st-osoby"
+                min="1"
+                max="1000"
+                step="1"
+                placeholder="np. 120"
+              />
+            </div>
+            <div class="tool-field">
+              <label for="st-procent">% dostaje stypendium</label>
+              <input
+                type="number"
+                id="st-procent"
+                min="1"
+                max="100"
+                step="1"
+                placeholder="np. 10"
+              />
+            </div>
+          </div>
+          <div id="st-wynik" class="hidden">
+            <div id="st-ranking-bar">
+              <div id="st-ranking-fill"></div>
+              <div id="st-ranking-prog-marker"></div>
+              <span id="st-ranking-ty">Ty</span>
+            </div>
+            <div id="st-stats">
+              <div class="st-stat">
+                <span class="st-label">Twoja średnia</span>
+                <strong id="st-twoja">—</strong>
+              </div>
+              <div class="st-stat">
+                <span class="st-label">Próg stypendium</span>
+                <strong id="st-prog-display">—</strong>
+              </div>
+              <div class="st-stat">
+                <span class="st-label">Różnica</span>
+                <strong id="st-roznica">—</strong>
+              </div>
+              <div class="st-stat">
+                <span class="st-label">Miejsce w rankingu</span>
+                <strong id="st-miejsce">—</strong>
+              </div>
+            </div>
+            <div id="st-komunikat"></div>
+          </div>
+          <p id="st-brak" class="tool-hint">
+            Wpisz próg, liczbę osób i procent, żeby zobaczyć szacunek.
+          </p>
+        </div>
+      </section>
     </main>
+
+    <button id="btn-info-show" aria-label="Pokaż opis">?</button>
 
     <script src="app.js"></script>
   </body>
