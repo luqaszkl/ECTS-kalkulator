@@ -331,7 +331,7 @@ el.form.addEventListener("submit", (e) => {
   const ects = parseFloat(el.fEcts.value);
   const semestr = el.fSem.value.trim() || null;
   if (!ocena) {
-    alert("Wybierz ocene!");
+    alert("Wybierz ocenę!");
     return;
   }
   if (!ects || ects <= 0) {
@@ -352,7 +352,7 @@ el.form.addEventListener("submit", (e) => {
 });
 
 el.btnClear.addEventListener("click", () => {
-  if (!confirm("Usunac wszystkie przedmioty?")) return;
+  if (!confirm("Usunąć wszystkie przedmioty?")) return;
   data = [];
   activeFilters.clear();
   save();
@@ -508,12 +508,13 @@ function styCalc() {
 
   if (sr >= prog) {
     el.styMsg.className = "sty-msg ok";
-    el.styMsg.innerHTML = `<strong>Jestes powyzej progu.</strong> Zapas to ${diff.toFixed(3)} pkt. Szacunkowo ${przed} ${przed === 1 ? "osoba ma" : "osoby maja"} lepsza srednia. Pamietaj, prog moze wzrosnac.`;
+    el.styMsg.innerHTML = `<strong>Jesteś powyżej progu.</strong> Zapas to: ${diff.toFixed(3)} pkt. Szacunkowo ${przed} ${przed === 1 ? "osoba ma" : "osoby mają"} 
+    lepszą srednią. Pamietaj, są to szacunkowe wartości, gdzie wartość może różnić się od rzeczywistej.`;
   } else {
     const sw2 = data.reduce((a, p) => a + p.ocena * p.ects, 0);
     const need = Math.max(0, (prog * se - sw2) / (5 - prog));
     el.styMsg.className = "sty-msg no";
-    el.styMsg.innerHTML = `<strong>Brakuje ${Math.abs(diff).toFixed(3)} pkt.</strong> Szacunkowo ${przed} ${przed === 1 ? "osoba jest" : "osoby sa"} przed Toba. Zeby dobic do ${prog.toFixed(2)} potrzebujesz ok. <em>${need.toFixed(1)} ECTS</em> z ocena 5.0.`;
+    el.styMsg.innerHTML = `<strong>Brakuje: ${Math.abs(diff).toFixed(3)} pkt.</strong> Szacunkowo ${przed} ${przed === 1 ? "osoba jest" : "osoby są"} przed Tobą. Żeby dobić do ${prog.toFixed(2)} potrzebujesz ok. <em>${need.toFixed(1)} ECTS</em> z ocena 5.0.`;
   }
 }
 

@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ECTScalc | Kalkulator sredniej wazonej</title>
+    <title>ECTScalc | Kalkulator średniej ważonej</title>
     <meta
       name="description"
-      content="Oblicz swoja srednia wazona ECTS. Dane lokalne, bez konta."
+      content="Oblicz swoją średnią  ważoną ECTS. Dane lokalne, bez konta."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
@@ -20,17 +20,17 @@
       <div class="header-inner">
         <h1>ECTS<span class="accent">calc</span></h1>
         <div class="header-actions">
-          <button id="btn-info-show" class="hdr-btn" title="Jak to dziala">
+          <button id="btn-info-show" class="hdr-btn" title="Jak to działa?">
             ?
           </button>
           <button
             id="btn-precise"
             class="hdr-btn mono"
-            title="Pokaz dokladna wartosc"
+            title="Pokaż dokładną wartość"
           >
             &#8776;
           </button>
-          <button id="btn-theme" class="hdr-btn" title="Zmien motyw">
+          <button id="btn-theme" class="hdr-btn" title="Zmień motyw">
             &#9728;&#65039;
           </button>
         </div>
@@ -44,20 +44,20 @@
         </button>
         <div class="hero-grid">
           <div class="hero-left">
-            <h2>Kalkulator sredniej wazonej ECTS</h2>
+            <h2>Kalkulator średniej ważonej ECTS</h2>
             <p>
-              Liczy tak samo jak dziekanat. Dane siedza lokalnie w przegladarce,
-              zadnego konta, zadnego serwera.
+              Liczy tak samo jak dziekanat. Dane siedzą lokalnie w przeglądarce,
+              bez konta, ani serwera.
             </p>
             <div class="hero-note">
               <span class="note-badge">Wazne</span>
-              Wpisuj tylko przedmioty z ocena wliczana do sredniej. Zaliczenia
-              "zal" i wpisy bez oceny calkowicie pomijaj.
+              Wpisuj tylko przedmioty z oceną wliczaną do średniej. Zaliczenia
+              "zal" i wpisy bez oceny całkowicie pomijaj.
             </div>
           </div>
           <div class="hero-right">
             <div class="wzor-box">
-              <span class="wzor-tag">wzor</span>
+              <span class="wzor-tag">WZÓR</span>
               <div class="wzor-frac">
                 <span class="wzor-num"
                   >&#x2211; (ocena<sub>i</sub> &times; ECTS<sub>i</sub>)</span
@@ -73,11 +73,11 @@
               </li>
               <li>
                 <span class="step-n">2</span> Dodaj przedmiot, wyniki
-                aktualizuja sie na zywo
+                aktualizują się na żywo
               </li>
               <li>
-                <span class="step-n">3</span> Kliknij kilka filtrow jednoczesnie
-                zeby porownac semestry
+                <span class="step-n">3</span> Kliknij kilka filtrów jednocześnie,
+                żeby porównać semestry
               </li>
             </ol>
           </div>
@@ -147,7 +147,7 @@
             <h3 class="card-title">
               Przedmioty <span id="badge" class="badge hidden"></span>
             </h3>
-            <button id="btn-clear" class="btn-danger hidden">wyczysc</button>
+            <button id="btn-clear" class="btn-danger hidden">wyczyść</button>
           </div>
 
           <div id="filtry-wrap" class="filtry-wrap hidden">
@@ -157,8 +157,8 @@
 
           <div id="empty" class="empty">
             <span>&#127891;</span>
-            <p>Brak przedmiotow</p>
-            <small>Dodaj pierwszy przedmiot w formularzu powyzej.</small>
+            <p>Brak przedmiotów</p>
+            <small>Dodaj pierwszy przedmiot w formularzu powyżej.</small>
           </div>
 
           <ul id="lista" class="lista"></ul>
@@ -169,7 +169,7 @@
         <div class="card card--stats" id="card-stats">
           <div class="stats-left">
             <div class="stat">
-              <span class="stat-label">Srednia wazona</span>
+              <span class="stat-label">Średnia ważona</span>
               <strong id="stat-sr" class="stat-main">&#8212;</strong>
               <span id="stat-precise" class="stat-precise hidden"></span>
             </div>
@@ -179,13 +179,13 @@
                 <strong id="stat-ects" class="stat-val">0</strong>
               </div>
               <div class="stat">
-                <span class="stat-label">Przedmiotow</span>
+                <span class="stat-label">Przedmiotów</span>
                 <strong id="stat-count" class="stat-val">0</strong>
               </div>
             </div>
           </div>
           <div class="stats-right">
-            <span class="wykres-label">Rozklad ocen</span>
+            <span class="wykres-label">Rozkład ocen</span>
             <div id="wykres" class="wykres"></div>
           </div>
         </div>
@@ -197,8 +197,8 @@
             <div>
               <h3 class="card-title">&#128302; Co jesli?</h3>
               <p class="tool-desc">
-                Symuluj wplyw przyszlych ocen na srednia bez zapisywania. Mozna
-                dodac kilka naraz.
+                Symuluj wpływ przyszłych ocen na średnią bez zapisywania. Można
+                dodać kilka naraz.
               </p>
             </div>
           </div>
@@ -219,7 +219,7 @@
             <span id="cj-delta" class="cj-delta"></span>
           </div>
           <p id="cj-empty" class="tool-hint">
-            Najpierw dodaj jakis przedmiot do listy.
+            Najpierw dodaj jakiś przedmiot do listy.
           </p>
         </div>
 
@@ -228,14 +228,14 @@
             <div>
               <h3 class="card-title">&#127942; Kalkulator stypendialny</h3>
               <p class="tool-desc">
-                Szacunkowe obliczenia, ranking zalezy od wynikow calego
+                Szacunkowe obliczenia, ranking zależy od wyników całego
                 rocznika.
               </p>
             </div>
           </div>
           <div class="sty-inputs">
             <div class="field">
-              <label for="sty-prog">Prog sredniej</label>
+              <label for="sty-prog">Próg średniej</label>
               <input
                 id="sty-prog"
                 type="number"
@@ -246,7 +246,7 @@
               />
             </div>
             <div class="field">
-              <label for="sty-osoby">Osob na roku</label>
+              <label for="sty-osoby">Osób na roku</label>
               <input
                 id="sty-osoby"
                 type="number"
@@ -278,15 +278,15 @@
             </div>
             <div class="sty-stats">
               <div class="sty-stat">
-                <span class="sty-label">Twoja sr.</span>
+                <span class="sty-label">Twoja śr.</span>
                 <strong id="sty-twoja">&#8212;</strong>
               </div>
               <div class="sty-stat">
-                <span class="sty-label">Prog</span>
+                <span class="sty-label">Próg</span>
                 <strong id="sty-prog-val">&#8212;</strong>
               </div>
               <div class="sty-stat">
-                <span class="sty-label">Roznica</span>
+                <span class="sty-label">Rożnica</span>
                 <strong id="sty-diff">&#8212;</strong>
               </div>
               <div class="sty-stat">
@@ -294,14 +294,14 @@
                 <strong id="sty-place">&#8212;</strong>
               </div>
               <div class="sty-stat">
-                <span class="sty-label">Osob przed Toba</span>
+                <span class="sty-label">Osób przed Tobą</span>
                 <strong id="sty-before">&#8212;</strong>
               </div>
             </div>
             <div id="sty-msg" class="sty-msg"></div>
           </div>
           <p id="sty-empty" class="tool-hint">
-            Wpisz prog, liczbe osob i procent zeby zobaczyc szacunek.
+            Wpisz próg, liczbę osób i procent, żeby zobaczyć szacunek.
           </p>
         </div>
       </main>
@@ -310,7 +310,7 @@
     <footer class="footer">
       <div class="footer-inner">
         <code class="footer-wzor"
-          >srednia = &Sigma;(ocena &times; ECTS) / &Sigma;ECTS</code
+          >średnia = &Sigma;(ocena &times; ECTS) / &Sigma;ECTS</code
         >
         <a
           href="https://github.com/lukon-dev"
