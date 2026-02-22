@@ -66,40 +66,7 @@
                 stroke-linejoin="round"
               />
             </svg>
-          </button>
-          <button
-            id="btn-motyw"
-            class="btn-naglowek btn-motyw"
-            title="Zmień motyw"
-          >
-            <span class="ikona-slonce">
-              <svg
-                viewBox="0 0 20 20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                width="16"
-                height="16"
-              >
-                <circle cx="10" cy="10" r="3.2" />
-                <path
-                  d="M10 1.5v2M10 16.5v2M1.5 10h2M16.5 10h2M4.1 4.1l1.4 1.4M14.5 14.5l1.4 1.4M4.1 15.9l1.4-1.4M14.5 5.5l1.4-1.4"
-                  stroke-linecap="round"
-                />
-              </svg>
-            </span>
-            <span class="ikona-ksiezyc">
-              <svg
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                width="15"
-                height="15"
-              >
-                <path
-                  d="M16.5 11.8A7 7 0 0 1 8.2 3.5a.5.5 0 0 0-.6-.6A8 8 0 1 0 17.1 12.4a.5.5 0 0 0-.6-.6z"
-                />
-              </svg>
-            </span>
+            <span class="btn-pokaz-info-tekst">Jak to działa?</span>
           </button>
         </div>
       </div>
@@ -107,18 +74,6 @@
 
     <div id="hero">
       <div class="hero-wewnatrz">
-        <button id="btn-zamknij-info" class="hero-zamknij" title="Zamknij">
-          <svg
-            viewBox="0 0 16 16"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.8"
-            width="13"
-            height="13"
-          >
-            <path d="M2 2l12 12M14 2L2 14" stroke-linecap="round" />
-          </svg>
-        </button>
         <div class="hero-siatka">
           <div class="hero-lewo">
             <h2>Kalkulator średniej ważonej ECTS</h2>
@@ -202,7 +157,7 @@
                   required
                 />
               </div>
-              <div class="pole pole--male">
+              <div class="pole pole-male">
                 <label for="f-sem">Sem.</label>
                 <input
                   id="f-sem"
@@ -257,7 +212,7 @@
       </aside>
 
       <main class="zawartosc">
-        <div class="karta karta--statystyki" id="karta-statystyki">
+        <div class="karta karta-statystyki" id="karta-statystyki">
           <div class="statystyki-lewo">
             <div class="statystyka">
               <span class="statystyka-etykieta">Średnia ważona</span>
@@ -328,7 +283,7 @@
 
         <div id="chipy-semestrow" class="chipy-semestrow"></div>
 
-        <div class="karta karta--narzedzie karta--co-jesli" id="karta-co-jesli">
+        <div class="karta karta-narzedzie karta-co-jesli" id="karta-co-jesli">
           <div class="narzedzie-naglowek">
             <div class="narzedzie-ikona-owijka">
               <span class="narzedzie-ikona">
@@ -357,23 +312,28 @@
               </span>
             </div>
             <div>
-              <h3 class="karta-tytul karta-tytul--narzedzie">Co jeśli?</h3>
+              <h3 class="karta-tytul karta-tytul-narzedzie">Co jeśli?</h3>
               <p class="narzedzie-opis">
                 Symuluj wpływ przyszłych ocen na średnią bez zapisywania.
               </p>
             </div>
           </div>
-          <div id="cj-wejscia" class="cj-wejscia"></div>
-          <button id="cj-dodaj" type="button" class="btn-duch">
+          <div id="co-jesli-wejscia" class="co-jesli-wejscia"></div>
+          <button id="co-jesli-dodaj" type="button" class="btn-duch">
             + kolejny przedmiot
           </button>
-          <div id="cj-wynik" class="cj-wynik ukryty">
-            <div class="cj-statystyka">
-              <span class="cj-etykieta">Teraz</span>
-              <strong id="cj-teraz">-</strong>
+
+          <div id="co-jesli-wynik" class="co-jesli-wynik ukryty">
+            <div class="co-jesli-statystyka">
+              <span class="co-jesli-etykieta">Teraz</span>
+              <strong id="co-jesli-teraz">-</strong>
             </div>
-            <div class="cj-strzalka-owijka">
-              <svg viewBox="0 0 40 16" fill="none" class="cj-strzalka-svg">
+            <div class="co-jesli-strzalka-owijka">
+              <svg
+                viewBox="0 0 40 16"
+                fill="none"
+                class="co-jesli-strzalka-svg"
+              >
                 <path
                   d="M2 8h32M28 3l6 5-6 5"
                   stroke="currentColor"
@@ -383,23 +343,23 @@
                 />
               </svg>
             </div>
-            <div class="cj-statystyka cj-statystyka--duza">
-              <span class="cj-etykieta">Po zmianach</span>
-              <strong id="cj-potem">-</strong>
+            <div class="co-jesli-statystyka co-jesli-statystyka-duza">
+              <span class="co-jesli-etykieta">Po zmianach</span>
+              <strong id="co-jesli-potem">-</strong>
             </div>
-            <span id="cj-roznica" class="cj-roznica"></span>
+            <span id="co-jesli-roznica" class="co-jesli-roznica"></span>
           </div>
-          <p id="cj-pusty" class="narzedzie-podpowiedz">
+          <p id="co-jesli-pusty" class="narzedzie-podpowiedz">
             Najpierw dodaj jakiś przedmiot do listy.
           </p>
         </div>
 
         <div
-          class="karta karta--narzedzie karta--stypendium"
+          class="karta karta-narzedzie karta-stypendium"
           id="karta-stypendium"
         >
           <div class="narzedzie-naglowek">
-            <div class="narzedzie-ikona-owijka narzedzie-ikona-owijka--gold">
+            <div class="narzedzie-ikona-owijka narzedzie-ikona-owijka-gold">
               <span class="narzedzie-ikona">
                 <svg
                   viewBox="0 0 24 24"
@@ -418,7 +378,7 @@
               </span>
             </div>
             <div>
-              <h3 class="karta-tytul karta-tytul--narzedzie">
+              <h3 class="karta-tytul karta-tytul-narzedzie">
                 Kalkulator stypendialny
               </h3>
               <p class="narzedzie-opis">
@@ -427,11 +387,11 @@
               </p>
             </div>
           </div>
-          <div class="sty-wejscia">
+          <div class="stypendium-wejscia">
             <div class="pole">
-              <label for="sty-prog">Próg średniej</label>
+              <label for="stypendium-prog">Próg średniej</label>
               <input
-                id="sty-prog"
+                id="stypendium-prog"
                 type="number"
                 min="2"
                 max="5"
@@ -440,9 +400,9 @@
               />
             </div>
             <div class="pole">
-              <label for="sty-osoby">Osób na roku</label>
+              <label for="stypendium-osoby">Osób na roku</label>
               <input
-                id="sty-osoby"
+                id="stypendium-osoby"
                 type="number"
                 min="1"
                 max="2000"
@@ -451,9 +411,9 @@
               />
             </div>
             <div class="pole">
-              <label for="sty-proc">% ze stypendium</label>
+              <label for="stypendium-proc">% ze stypendium</label>
               <input
-                id="sty-proc"
+                id="stypendium-proc"
                 type="number"
                 min="1"
                 max="100"
@@ -462,39 +422,42 @@
               />
             </div>
           </div>
-          <div id="sty-wynik" class="sty-wynik ukryty">
-            <div class="sty-pasek-owijka">
-              <div class="sty-pasek" id="sty-pasek">
-                <div id="sty-wypelnienie" class="sty-wypelnienie"></div>
-                <div id="sty-marker" class="sty-marker"></div>
-                <span id="sty-ty" class="sty-ty">Ty</span>
+          <div id="stypendium-wynik" class="stypendium-wynik ukryty">
+            <div class="stypendium-pasek-owijka">
+              <div class="stypendium-pasek" id="stypendium-pasek">
+                <div
+                  id="stypendium-wypelnienie"
+                  class="stypendium-wypelnienie"
+                ></div>
+                <div id="stypendium-marker" class="stypendium-marker"></div>
+                <span id="stypendium-ty" class="stypendium-ty">Ty</span>
               </div>
             </div>
-            <div class="sty-statystyki">
-              <div class="sty-statystyka">
-                <span class="sty-etykieta">Twoja śr.</span>
-                <strong id="sty-twoja">-</strong>
+            <div class="stypendium-statystyki">
+              <div class="stypendium-statystyka">
+                <span class="stypendium-etykieta">Twoja śr.</span>
+                <strong id="stypendium-twoja">-</strong>
               </div>
-              <div class="sty-statystyka">
-                <span class="sty-etykieta">Próg</span>
-                <strong id="sty-prog-wartosc">-</strong>
+              <div class="stypendium-statystyka">
+                <span class="stypendium-etykieta">Próg</span>
+                <strong id="stypendium-prog-wartosc">-</strong>
               </div>
-              <div class="sty-statystyka">
-                <span class="sty-etykieta">Różnica</span>
-                <strong id="sty-roznica">-</strong>
+              <div class="stypendium-statystyka">
+                <span class="stypendium-etykieta">Różnica</span>
+                <strong id="stypendium-roznica">-</strong>
               </div>
-              <div class="sty-statystyka">
-                <span class="sty-etykieta">Miejsce ~</span>
-                <strong id="sty-miejsce">-</strong>
+              <div class="stypendium-statystyka">
+                <span class="stypendium-etykieta">Miejsce ~</span>
+                <strong id="stypendium-miejsce">-</strong>
               </div>
-              <div class="sty-statystyka">
-                <span class="sty-etykieta">Osób przed Tobą</span>
-                <strong id="sty-przed">-</strong>
+              <div class="stypendium-statystyka">
+                <span class="stypendium-etykieta">Osób przed Tobą</span>
+                <strong id="stypendium-przed">-</strong>
               </div>
             </div>
-            <div id="sty-komunikat" class="sty-komunikat"></div>
+            <div id="stypendium-komunikat" class="stypendium-komunikat"></div>
           </div>
-          <p id="sty-pusty" class="narzedzie-podpowiedz">
+          <p id="stypendium-pusty" class="narzedzie-podpowiedz">
             Wpisz próg, liczbę osób i procent, żeby zobaczyć szacunek.
           </p>
         </div>
@@ -556,7 +519,7 @@
             <label for="e-ects">ECTS</label>
             <input id="e-ects" type="number" min="0.5" max="30" step="0.5" />
           </div>
-          <div class="pole pole--male">
+          <div class="pole pole-male">
             <label for="e-sem">Sem.</label>
             <input
               id="e-sem"
