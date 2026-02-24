@@ -6,12 +6,31 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no"
     />
-    <title>ECTScalc | Kalkulator średniej ważonej</title>
+    <title>ECTScalc – Kalkulator średniej ważonej ECTS dla studentów</title>
     <meta
       name="description"
-      content="Oblicz swoją średnią ważoną ECTS. Dane lokalne, bez konta."
+      content="Kalkulator średniej ważonej ECTS dla studentów. Liczy tak samo jak dziekanat — dodaj przedmioty, filtruj semestry, symuluj oceny. Dane zapisywane lokalnie, bez konta."
     />
     <meta name="theme-color" content="#00e5a0" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ECTScalc – Kalkulator średniej ważonej ECTS dla studentów" />
+    <meta property="og:description" content="Kalkulator średniej ważonej ECTS dla studentów. Liczy tak samo jak dziekanat — bez konta, dane lokalnie w przeglądarce." />
+    <meta property="og:locale" content="pl_PL" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://lukon-dev.github.io/ECTS-kalkulator/" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ECTScalc",
+      "description": "Kalkulator średniej ważonej ECTS dla studentów. Liczy tak samo jak dziekanat — bez konta, dane lokalnie w przeglądarce.",
+      "url": "https://lukon-dev.github.io/ECTS-kalkulator/",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "All",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PLN" },
+      "inLanguage": "pl"
+    }
+    </script>
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
@@ -20,10 +39,11 @@
     <meta name="apple-mobile-web-app-title" content="ECTScalc" />
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -153,11 +173,12 @@
                   min="0.5"
                   max="30"
                   step="0.5"
+                  inputmode="decimal"
                   placeholder="5"
                   required
                 />
               </div>
-              <div class="pole pole-male">
+              <div class="pole pole-sem">
                 <label for="f-sem">Sem.</label>
                 <input
                   id="f-sem"
@@ -165,6 +186,7 @@
                   min="1"
                   max="14"
                   step="1"
+                  inputmode="numeric"
                   placeholder="nr"
                 />
               </div>
@@ -263,6 +285,7 @@
                   min="2"
                   max="5"
                   step="0.01"
+                  inputmode="decimal"
                   placeholder="np. 4.50"
                 />
               </div>
@@ -396,6 +419,7 @@
                 min="2"
                 max="5"
                 step="0.01"
+                  inputmode="decimal"
                 placeholder="np. 4.25"
               />
             </div>
@@ -407,6 +431,7 @@
                 min="1"
                 max="2000"
                 step="1"
+                  inputmode="numeric"
                 placeholder="np. 120"
               />
             </div>
@@ -418,6 +443,7 @@
                 min="1"
                 max="100"
                 step="1"
+                  inputmode="numeric"
                 placeholder="np. 10"
               />
             </div>
@@ -472,7 +498,7 @@
         <a
           href="https://github.com/lukon-dev"
           target="_blank"
-          rel="noopener"
+          rel="noopener noreferrer"
           class="stopka-gh"
         >
           <svg
@@ -517,9 +543,10 @@
           </div>
           <div class="pole">
             <label for="e-ects">ECTS</label>
-            <input id="e-ects" type="number" min="0.5" max="30" step="0.5" />
+            <input id="e-ects" type="number" min="0.5" max="30" step="0.5"
+                  inputmode="decimal" />
           </div>
-          <div class="pole pole-male">
+          <div class="pole pole-sem">
             <label for="e-sem">Sem.</label>
             <input
               id="e-sem"
@@ -527,6 +554,7 @@
               min="1"
               max="14"
               step="1"
+                  inputmode="numeric"
               placeholder="nr"
             />
           </div>

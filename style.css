@@ -147,8 +147,8 @@ header {
   right: 0;
   z-index: 30;
   background: rgba(8, 12, 22, 0.5);
-  backdrop-filter: blur(80px) saturate(300%);
   -webkit-backdrop-filter: blur(80px) saturate(300%);
+  backdrop-filter: blur(80px) saturate(300%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   padding: 0 22px;
   height: 54px;
@@ -246,8 +246,8 @@ h1 .akcent {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.14) inset,
     0 -1px 0 rgba(0, 0, 0, 0.1) inset;
@@ -298,8 +298,8 @@ h1 .akcent {
 
 #hero {
   background: rgba(8, 12, 22, 0.45);
-  backdrop-filter: blur(70px) saturate(280%);
   -webkit-backdrop-filter: blur(70px) saturate(280%);
+  backdrop-filter: blur(70px) saturate(280%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.07);
   overflow: hidden;
   transition:
@@ -355,6 +355,7 @@ h1 .akcent {
   display: flex;
   align-items: flex-start;
   gap: 8px;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   animation: slideInLeft 0.6s var(--ease) 0.2s both;
 }
@@ -387,6 +388,7 @@ h1 .akcent {
   display: flex;
   align-items: center;
   gap: 14px;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   animation: slideInRight 0.6s var(--ease) 0.1s both;
 }
@@ -501,7 +503,6 @@ h1 .akcent {
   top: 74px;
   max-height: calc(100vh - 94px);
   overflow-y: auto;
-  overflow-x: hidden;
   overflow-x: clip;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
@@ -516,8 +517,8 @@ h1 .akcent {
 
 .karta {
   background: rgba(8, 12, 22, 0.42);
-  backdrop-filter: blur(70px) saturate(280%) brightness(1.08);
   -webkit-backdrop-filter: blur(70px) saturate(280%) brightness(1.08);
+  backdrop-filter: blur(70px) saturate(280%) brightness(1.08);
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 22px;
   padding: 18px;
@@ -626,6 +627,10 @@ label {
   margin-bottom: 0;
 }
 
+.pole-rzad .pole-sem {
+  min-width: 0;
+}
+
 input,
 select {
   width: 100%;
@@ -639,8 +644,8 @@ select {
   appearance: none;
   -webkit-appearance: none;
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   position: relative;
   box-shadow:
     0 1px 4px rgba(0, 0, 0, 0.2) inset,
@@ -675,6 +680,7 @@ select option {
   padding: 7px 11px;
   margin-bottom: 10px;
   animation: slideIn 0.4s var(--spreczyna) both;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
@@ -947,6 +953,7 @@ input[type="checkbox"]:checked ~ .toggle-tekst {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
@@ -1084,6 +1091,7 @@ input[type="checkbox"]:checked ~ .toggle-tekst {
   position: relative;
   overflow: hidden;
   touch-action: pan-y;
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 
@@ -1430,6 +1438,7 @@ input[type="checkbox"]:checked ~ .toggle-tekst {
   border-radius: 6px;
   overflow: hidden;
   margin-top: 8px;
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 
@@ -1471,8 +1480,8 @@ input[type="checkbox"]:checked ~ .toggle-tekst {
 
 .chip-semestru {
   background: rgba(8, 12, 22, 0.42);
-  backdrop-filter: blur(70px) saturate(280%);
   -webkit-backdrop-filter: blur(70px) saturate(280%);
+  backdrop-filter: blur(70px) saturate(280%);
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 16px;
   padding: 10px 16px;
@@ -1601,6 +1610,7 @@ input[type="checkbox"]:checked ~ .toggle-tekst {
   transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
   position: relative;
   overflow: hidden;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
@@ -1779,6 +1789,7 @@ input[type="checkbox"]:checked ~ .toggle-tekst {
   padding: 14px 18px;
   margin-top: 4px;
   animation: slideIn 0.5s var(--spreczyna) both;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
@@ -1888,6 +1899,7 @@ input[type="checkbox"]:checked ~ .toggle-tekst {
   border-radius: 9px;
   border: 1px solid rgba(255, 255, 255, 0.09);
   overflow: visible;
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 
@@ -1966,6 +1978,7 @@ input[type="checkbox"]:checked ~ .toggle-tekst {
   border-radius: 12px;
   color: var(--tekst-mid);
   animation: slideIn 0.4s var(--spreczyna) both;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
@@ -2006,8 +2019,8 @@ input[type="checkbox"]:checked ~ .toggle-tekst {
 
 .powiadomienie {
   background: rgba(8, 12, 24, 0.75);
-  backdrop-filter: blur(50px) saturate(220%);
   -webkit-backdrop-filter: blur(50px) saturate(220%);
+  backdrop-filter: blur(50px) saturate(220%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 14px;
   padding: 10px 16px;
@@ -2023,6 +2036,10 @@ input[type="checkbox"]:checked ~ .toggle-tekst {
   gap: 8px;
 }
 
+.powiadomienie.blad {
+  border-color: rgba(229, 72, 77, 0.35);
+}
+
 .powiadomienie.ok {
   border-color: rgba(0, 229, 160, 0.3);
 }
@@ -2032,6 +2049,17 @@ input[type="checkbox"]:checked ~ .toggle-tekst {
   color: var(--akcent);
   font-weight: 700;
   text-shadow: 0 0 8px var(--akcent-glow);
+  margin-right: 4px;
+}
+
+.powiadomienie.blad {
+  border-color: rgba(229, 72, 77, 0.35);
+}
+
+.powiadomienie.blad::before {
+  content: "✕";
+  color: #e5484d;
+  font-weight: 700;
   margin-right: 4px;
 }
 
@@ -2085,8 +2113,8 @@ input[type="checkbox"]:checked ~ .toggle-tekst {
 .stopka {
   border-top: 1px solid rgba(255, 255, 255, 0.07);
   background: rgba(8, 12, 22, 0.35);
-  backdrop-filter: blur(70px) saturate(280%);
   -webkit-backdrop-filter: blur(70px) saturate(280%);
+  backdrop-filter: blur(70px) saturate(280%);
   position: relative;
   z-index: 1;
   padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -2131,8 +2159,8 @@ input[type="checkbox"]:checked ~ .toggle-tekst {
   inset: 0;
   z-index: 200;
   background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2146,8 +2174,8 @@ input[type="checkbox"]:checked ~ .toggle-tekst {
 
 .modal-karta {
   background: rgba(10, 14, 26, 0.88);
-  backdrop-filter: blur(80px) saturate(300%);
   -webkit-backdrop-filter: blur(80px) saturate(300%);
+  backdrop-filter: blur(80px) saturate(300%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 22px;
   padding: 22px;

@@ -8,7 +8,7 @@ const znajdzElement = (selektor) => document.querySelector(selektor);
 
 const elementy = {
   formularz: znajdzElement("#formularz"),
-  polaNazwy: znajdzElement("#f-nazwa"),
+  poleNazwy: znajdzElement("#f-nazwa"),
   poleOceny: znajdzElement("#f-ocena"),
   poleEcts: znajdzElement("#f-ects"),
   poleSemestru: znajdzElement("#f-sem"),
@@ -85,11 +85,12 @@ let przedmioty = JSON.parse(localStorage.getItem(KLUCZ_DANYCH)) || [];
 let bohaterWidoczny = localStorage.getItem(KLUCZ_BOHATERA) !== "0";
 let trybDokladny = false;
 let aktywneFiltery = new Set();
-let wierszeCj = [{ identyfikator: 0, ocena: 4.5, ects: 5 }];
+let wierszeCoJesli = [{ ocena: 4.5, ects: 5 }];
 let ostatnioUsuniety = null;
 let celOsiagniety = false;
+let trybInicjalizacji = true;
 let edytowanyId = null;
-let czasnikKonfetti = null;
+
 
 document.addEventListener("keydown", (zdarzenie) => {
   if (zdarzenie.key === "Escape") {
@@ -97,11 +98,11 @@ document.addEventListener("keydown", (zdarzenie) => {
       zamknijModal();
       return;
     }
-    elementy.polaNazwy.value = "";
+    elementy.poleNazwy.value = "";
     elementy.poleOceny.value = "";
     elementy.poleEcts.value = "";
     elementy.podgladFormularza.classList.add("ukryty");
-    elementy.polaNazwy.blur();
+    elementy.poleNazwy.blur();
   }
   if ((zdarzenie.ctrlKey || zdarzenie.metaKey) && zdarzenie.key === "z")
     cofnijUsuniecie();
@@ -280,7 +281,7 @@ function cofnijUsuniecie() {
   zapiszDane();
   renderujWszystko();
   ostatnioUsuniety = null;
-  pokazPowiadomienie("Przywrocono przedmiot");
+  pokazPowiadomienie("Przywrócono przedmiot");
 }
 
 function ustawBohatera(widoczny) {
@@ -365,13 +366,13 @@ function obliczCelSredniej(srednia, sumaEcts, pozwolKonfetti = false) {
   elementy.celEtykiety.classList.remove("ukryty");
 
   if (srednia >= cel) {
-    elementy.celInfo.innerHTML = `<strong>Cel osiagniety!</strong> Zapas: ${roznica.toFixed(3)} pkt powyzej ${cel.toFixed(2)}.`;
+    elementy.celInfo.innerHTML = `<strong>Cel osiągnięty!</strong> Zapas: ${roznica.toFixed(3)} pkt powyżej ${cel.toFixed(2)}.`;
     elementy.celWypelnienie.style.width = "100%";
     elementy.celWypelnienie.className = "cel-wypelnienie ok";
-    if (!celOsiagniety && pozwolKonfetti) {
+    if (!celOsiagniety && pozwolKonfetti && !trybInicjalizacji) {
       celOsiagniety = true;
       uruchomKonfetti();
-    } else if (!celOsiagniety && !pozwolKonfetti) {
+    } else if (!celOsiagniety) {
       celOsiagniety = true;
     }
   } else {
@@ -384,7 +385,7 @@ function obliczCelSredniej(srednia, sumaEcts, pozwolKonfetti = false) {
       0,
       (cel * sumaEcts - sumaWazonych) / (5 - cel),
     );
-    elementy.celInfo.innerHTML = `Brakuje <strong>${Math.abs(roznica).toFixed(3)} pkt</strong>. Potrzebujesz ok. <strong>${potrzebaEcts.toFixed(1)} ECTS</strong> z ocena 5.0.`;
+    elementy.celInfo.innerHTML = `Brakuje <strong>${Math.abs(roznica).toFixed(3)} pkt</strong>. Potrzebujesz ok. <strong>${potrzebaEcts.toFixed(1)} ECTS</strong> z oceną 5.0.`;
     const zakres = cel - 2.0;
     const postep = zakres > 0 ? Math.max(0, (srednia - 2.0) / zakres) : 0;
     const procent = Math.min(postep * 100, 99);
@@ -540,7 +541,7 @@ function usunPrzedmiot(przedmiot, elementListy) {
     });
     zapiszDane();
     renderujWszystko();
-    pokazPowiadomienie(`Usunieto "${przedmiot.nazwa}"`, "ok", {
+    pokazPowiadomienie(`Usunięto "${przedmiot.nazwa}"`, "ok", {
       etykieta: "Cofnij",
       fn: cofnijUsuniecie,
     });
@@ -566,14 +567,22 @@ function zapiszEdycje() {
   const nazwa = elementy.modalNazwa.value.trim();
   const ocena = parseFloat(elementy.modalOcena.value);
   const ects = parseFloat(elementy.modalEcts.value);
-  const semestr = elementy.modalSemestr.value.trim() || null;
+  const semestrVal = parseInt(elementy.modalSemestr.value, 10);
+  const semestr = (!isNaN(semestrVal) && semestrVal >= 1 && semestrVal <= 14) ? String(semestrVal) : null;
 
   if (!nazwa) {
     elementy.modalNazwa.focus();
+    pokazPowiadomienie("Wpisz nazwę przedmiotu!", "blad");
     return;
   }
-  if (!ocena) return;
-  if (!ects || ects <= 0) return;
+  if (!ocena) {
+    pokazPowiadomienie("Wybierz ocenę!", "blad");
+    return;
+  }
+  if (!ects || ects <= 0) {
+    pokazPowiadomienie("Wpisz poprawne ECTS!", "blad");
+    return;
+  }
 
   const indeks = przedmioty.findIndex(
     (pozycja) => (pozycja.identyfikator ?? pozycja.id) === edytowanyId,
@@ -629,12 +638,12 @@ function renderujListe() {
           <div class="element-pod">${przedmiot.ects} ECTS${przedmiot.semestr ? " &middot; sem. " + przedmiot.semestr : ""}</div>
         </div>
         <div class="element-akcje">
-          <button class="element-edytuj" type="button" aria-label="edytuj">
+          <button class="element-edytuj" type="button" aria-label="Edytuj przedmiot">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" width="13" height="13">
               <path d="M11.5 2.5a1.5 1.5 0 0 1 2.1 2.1L5 13.2l-2.8.7.7-2.8L11.5 2.5z" stroke-linejoin="round" />
             </svg>
           </button>
-          <button class="element-usun" type="button" aria-label="usun">
+          <button class="element-usun" type="button" aria-label="Usuń przedmiot">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" width="13" height="13">
               <path d="M2 4h12M5 4V2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5V4M6 7v5M10 7v5M3 4l.8 9.5a.5.5 0 0 0 .5.5h7.4a.5.5 0 0 0 .5-.5L13 4" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
@@ -679,9 +688,9 @@ function zaktualizujPodgladFormularza() {
   elementy.podgladFormularza.innerHTML = `po dodaniu: <strong>${sredniaPotem.toFixed(2)}</strong>&nbsp;<span style="color:${kolor}">(${znak}${roznica.toFixed(3)})</span>`;
 }
 
-function renderujWierszeCj() {
+function renderujWierszeCoJesli() {
   elementy.wejsciaCoJesli.innerHTML = "";
-  wierszeCj.forEach((wiersz, indeks) => {
+  wierszeCoJesli.forEach((wiersz, indeks) => {
     const kontener = document.createElement("div");
     kontener.className = "co-jesli-rzad";
     kontener.innerHTML = `
@@ -691,25 +700,25 @@ function renderujWierszeCj() {
         </select>
       </div>
       <div class="pole"><label>ECTS</label>
-        <input type="number" class="co-jesli-ects" min="0.5" max="30" step="0.5" value="${wiersz.ects}" />
+        <input type="number" class="co-jesli-ects" min="0.5" max="30" step="0.5" inputmode="decimal" value="${wiersz.ects}" />
       </div>
-      ${wierszeCj.length > 1 ? `<button type="button" class="co-jesli-usun">&#10005;</button>` : `<div></div>`}`;
+      ${wierszeCoJesli.length > 1 ? `<button type="button" class="co-jesli-usun">&#10005;</button>` : `<div></div>`}`;
     kontener
       .querySelector(".co-jesli-ocena")
       .addEventListener("change", (zdarzenie) => {
-        wierszeCj[indeks].ocena = +zdarzenie.target.value;
+        wierszeCoJesli[indeks].ocena = +zdarzenie.target.value;
         obliczCoJesli();
       });
     kontener
       .querySelector(".co-jesli-ects")
       .addEventListener("input", (zdarzenie) => {
-        wierszeCj[indeks].ects = +zdarzenie.target.value;
+        wierszeCoJesli[indeks].ects = +zdarzenie.target.value;
         obliczCoJesli();
       });
-    if (wierszeCj.length > 1)
+    if (wierszeCoJesli.length > 1)
       kontener.querySelector(".co-jesli-usun").addEventListener("click", () => {
-        wierszeCj.splice(indeks, 1);
-        renderujWierszeCj();
+        wierszeCoJesli.splice(indeks, 1);
+        renderujWierszeCoJesli();
         obliczCoJesli();
       });
     elementy.wejsciaCoJesli.appendChild(kontener);
@@ -743,7 +752,7 @@ function obliczCoJesli() {
   let dodatkEcts = 0;
   let dodatkWazonych = 0;
   let wszystkoPoprawne = true;
-  wierszeCj.forEach((wiersz) => {
+  wierszeCoJesli.forEach((wiersz) => {
     if (!wiersz.ects || wiersz.ects <= 0) {
       wszystkoPoprawne = false;
       return;
@@ -789,6 +798,7 @@ function obliczStypendium() {
       (suma, przedmiot) => suma + przedmiot.ocena * przedmiot.ects,
       0,
     ) / sumaEcts;
+  const sumaWazonych = srednia * sumaEcts;
   const liczbaStypendystow = Math.ceil(osoby * (procent / 100));
   const zakres = 3.0;
   const pozycjaTy = Math.min(Math.max((srednia - 2) / zakres, 0), 1) * 100;
@@ -833,10 +843,6 @@ function obliczStypendium() {
     elementy.komunikatStypendium.className = "stypendium-komunikat ok";
     elementy.komunikatStypendium.innerHTML = `<strong>Jesteś powyżej progu.</strong> Zapas: ${roznica.toFixed(3)} pkt. Szacunkowo ${liczbaOsobPrzed} ${liczbaOsobPrzed === 1 ? "osoba ma" : "osoby mają"} lepszą średnią.`;
   } else {
-    const sumaWazonych = przedmioty.reduce(
-      (suma, przedmiot) => suma + przedmiot.ocena * przedmiot.ects,
-      0,
-    );
     const potrzebaEcts = Math.max(
       0,
       (prog * sumaEcts - sumaWazonych) / (5 - prog),
@@ -877,42 +883,53 @@ elementy.poleEcts.addEventListener("input", zaktualizujPodgladFormularza);
 
 elementy.formularz.addEventListener("submit", (zdarzenie) => {
   zdarzenie.preventDefault();
-  const nazwa = elementy.polaNazwy.value.trim();
+  const nazwa = elementy.poleNazwy.value.trim();
   const ocena = parseFloat(elementy.poleOceny.value);
   const ects = parseFloat(elementy.poleEcts.value);
-  const semestr = elementy.poleSemestru.value.trim() || null;
+  const semestrVal = parseInt(elementy.poleSemestru.value, 10);
+  const semestr = (!isNaN(semestrVal) && semestrVal >= 1 && semestrVal <= 14) ? String(semestrVal) : null;
   if (!ocena) {
-    alert("Wybierz ocenę!");
+    pokazPowiadomienie("Wybierz ocenę!", "blad");
+    elementy.poleOceny.focus();
     return;
   }
   if (!ects || ects <= 0) {
-    alert("Wpisz poprawne ECTS!");
+    pokazPowiadomienie("Wpisz poprawne ECTS!", "blad");
+    elementy.poleEcts.focus();
     return;
   }
 
   przedmioty.push({ identyfikator: Date.now(), nazwa, ocena, ects, semestr });
   zapiszDane();
-  elementy.polaNazwy.value = "";
+  elementy.poleNazwy.value = "";
   elementy.poleOceny.value = "";
   elementy.poleEcts.value = "";
   elementy.podgladFormularza.classList.add("ukryty");
   renderujWszystko();
-  elementy.polaNazwy.focus();
+  elementy.poleNazwy.focus();
   pokazPowiadomienie("Dodano: " + nazwa);
 });
 
 elementy.przyciskWyczyszczenia.addEventListener("click", () => {
-  if (!confirm("Usunąć wszystkie przedmioty?")) return;
+  const kopia = [...przedmioty];
   przedmioty = [];
   aktywneFiltery.clear();
   celOsiagniety = false;
   zapiszDane();
   renderujWszystko();
+  pokazPowiadomienie("Wyczyszczono wszystkie przedmioty", "ok", {
+    etykieta: "Cofnij",
+    fn: () => {
+      przedmioty = kopia;
+      zapiszDane();
+      renderujWszystko();
+    },
+  });
 });
 
 elementy.przyciskDodajCoJesli.addEventListener("click", () => {
-  wierszeCj.push({ identyfikator: Date.now(), ocena: 4.5, ects: 5 });
-  renderujWierszeCj();
+  wierszeCoJesli.push({ ocena: 4.5, ects: 5 });
+  renderujWierszeCoJesli();
   obliczCoJesli();
 });
 
@@ -942,8 +959,17 @@ elementy.modalEdycji.addEventListener("click", (zdarzenie) => {
   if (zdarzenie.target === elementy.modalEdycji) zamknijModal();
 });
 elementy.modalNazwa.addEventListener("keydown", (zdarzenie) => {
-  if (zdarzenie.key === "Enter") zapiszEdycje();
+  if (zdarzenie.key === "Enter" && edytowanyId !== null) zapiszEdycje();
 });
 
-renderujWierszeCj();
+renderujWierszeCoJesli();
 renderujWszystko();
+trybInicjalizacji = false;
+
+window.addEventListener("resize", () => {
+  const canvas = elementy.konfettiCanvas;
+  if (canvas.style.display !== "none") {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+});
